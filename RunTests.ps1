@@ -95,6 +95,8 @@ $dnxRuntimePaths |% {
 		If ($executeResult.ExitCode -ne 0) {
 			$global:failed += $executeResult;
 		}
+
+		$Error.Clear();
 	}
 }
 
