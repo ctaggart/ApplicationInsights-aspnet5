@@ -74,11 +74,11 @@ $dnxRuntimePaths |% {
 
 	$TestProjects |% {
 		[String]$arguments = ". test";
-		[String]$workingDirectory = Join-Path $global:WorkingDirectory -ChildPath $_;
+		[String]$currentWorkingDirectory = Join-Path $global:WorkingDirectory -ChildPath $_;
 
 		Write-Host "=========================================================";
 		Write-Host "== Executing tests";
-		Write-Host "== Working Folder: $workingDirectory";
+		Write-Host "== Working Folder: $currentWorkingDirectory";
 		Write-Host "== Runtime:$dnxPath";
 		Write-Host "== Args:$arguments";
 		Write-Host "=========================================================";
@@ -86,7 +86,7 @@ $dnxRuntimePaths |% {
 		$executeResult = Execute-DnxProcess `
 			-RuntimePath $dnxPath `
 			-Arguments $arguments `
-			-WorkingDirectory $workingDirectory;
+			-WorkingDirectory $currentWorkingDirectory;
 
 		Write-Host "Test process executed, ExitCode:$($executeResult.ExitCode)";
 		Write-Host "Output:";
