@@ -71,10 +71,11 @@ If ($dnxRuntimePaths.Count -ne 4){
 $dnxRuntimePaths |% {
 	
 	$dnxPath = $_;
+	[String]$globalWorkingDirectory = $global:WorkingDirectory
 
 	$TestProjects |% {
 		[String]$arguments = ". test";
-		[String]$workingDirectory = Join-Path $global:WorkingDirectory -ChildPath $_;
+		[String]$workingDirectory = Join-Path $globalWorkingDirectory -ChildPath $_;
 
 		Write-Host "=========================================================";
 		Write-Host "== Executing tests";
