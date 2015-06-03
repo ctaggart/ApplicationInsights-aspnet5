@@ -65,17 +65,16 @@ $global:WorkingDirectory = (pwd).Path;
 $dnxRuntimePaths = Get-DnxRuntimePaths;
 
 If ($dnxRuntimePaths.Count -ne 4){
-	Throw "Unexpected number of DNX runtimes were desicovered, $($dnxRuntimePaths.Count)";
+	Throw "Unexpected number of DNX runtimes were discovered, $($dnxRuntimePaths.Count)";
 }
 
 $dnxRuntimePaths |% {
 	
 	$dnxPath = $_;
-	[String]$globalWorkingDirectory = $global:WorkingDirectory
 
 	$TestProjects |% {
 		[String]$arguments = ". test";
-		[String]$workingDirectory = Join-Path $globalWorkingDirectory -ChildPath $_;
+		[String]$workingDirectory = Join-Path $global:WorkingDirectory -ChildPath $_;
 
 		Write-Host "=========================================================";
 		Write-Host "== Executing tests";
@@ -93,7 +92,7 @@ $dnxRuntimePaths |% {
 		Write-Host "Output:";
 		Write-Host $executeResult.Output;
 
-		If ($executeResult.Code -ne 0) {
+		If ($executeResult.ExitCode -ne 0) {
 			$global:failed += $executeResult;
 		}
 	}
